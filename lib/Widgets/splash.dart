@@ -13,20 +13,21 @@ class Splash extends StatelessWidget {
       home: Scaffold(
         body: Container(
           height: double.infinity,
-
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xff6F1DFF), Color(0xff4B179C), Color(0xff140B34)],
+              colors: [Color(0xFF6A11FF), Color(0xFF3D0B87), Color(0xFF0F0F0F)],
             ),
           ),
+          
           padding: EdgeInsets.all(5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(height: h * 0.04),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -40,7 +41,7 @@ class Splash extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: h * 0.2),
+              SizedBox(height: h * 0.17),
               Image.asset("assets/logo.png", height: 0.3 * h, width: 0.6 * w),
               Text(
                 "VELORA",
@@ -135,6 +136,7 @@ class Splash extends StatelessWidget {
                   strokeWidth: 4,
                 ),
               ),
+              SizedBox(height: h * 0.01),
               Text(
                 "Loading...",
                 style: TextStyle(color: Colors.white, fontSize: 20),

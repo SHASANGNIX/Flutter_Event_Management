@@ -3,6 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'Widgets/splash.dart';
 
 void main() {
-  debugPaintSizeEnabled = true;
+  debugPaintSizeEnabled = false;
   runApp(const Splash());
 }

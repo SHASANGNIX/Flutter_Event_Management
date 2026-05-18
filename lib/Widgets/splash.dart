@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Splash extends StatelessWidget {
   const Splash({super.key});
@@ -8,68 +9,149 @@ class Splash extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return MaterialApp(
-      
       debugShowCheckedModeBanner: false,
-      home:Scaffold(
-        
-        body:Container(
-          height:double.infinity,
-          
-          width:double.infinity,
+      home: Scaffold(
+        body: Container(
+          height: double.infinity,
+
+          width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin:Alignment.topLeft,
-              end:Alignment.bottomRight,
-              colors:[
-                Color(0xff6F1DFF), 
-                Color(0xff4B179C), 
-                Color(0xff140B34),
-              ]
-            )
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xff6F1DFF), Color(0xff4B179C), Color(0xff140B34)],
+            ),
           ),
-          child:Column(
+          padding: EdgeInsets.all(5),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text("V1.0",style:TextStyle(
-                    color:Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold
-                  ),),
-                ],),
-              SizedBox(height: h*0.2,),
-              Image.asset("assets/logo.png",height:0.3*h,width:0.6*w,),
-              SizedBox(height: h*0.02,),
-              Text("VELORA",style:TextStyle(
-                color:Colors.white,
-                fontSize: 40,
-                fontWeight: FontWeight.bold
-              ),),
-              SizedBox(height: h*0.3,),
+                  Text(
+                    "V1.0",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: h * 0.2),
+              Image.asset("assets/logo.png", height: 0.3 * h, width: 0.6 * w),
               Text(
-                "© 2026 Velora",
-                style: TextStyle(
-                  color: Colors.white60,
-                  fontSize: 13,
+                "VELORA",
+                style: GoogleFonts.montserrat(
+                  fontSize: 55,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 2,
+                  color: Colors.white,
                 ),
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "CAMPUS ",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1,
+                        color: Color(0xff1DA1F2),
+                      ),
+                    ),
+                    TextSpan(
+                      text: "EVENT MANAGER",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1,
+                        color: Color(0xffFF7A1A),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "LOOK",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 14,
+                        letterSpacing: 4,
+                        color: Colors.white70,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    TextSpan(
+                      text: " • ",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 14,
+                        letterSpacing: 4,
+                        color: Color(0xff1DA1F2),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    TextSpan(
+                      text: "BOOK",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 14,
+                        letterSpacing: 4,
+                        color: Colors.white70,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    TextSpan(
+                      text: " • ",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 14,
+                        letterSpacing: 4,
+                        color: Color(0xffFF9F1A),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    TextSpan(
+                      text: "ENJOY",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 14,
+                        letterSpacing: 4,
+                        color: Colors.white70,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: h * 0.1),
+              SizedBox(
+                height: 60,
+                width: 60,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 4,
+                ),
+              ),
+              Text(
+                "Loading...",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              SizedBox(height: h * 0.05),
+              Text(
+                "COPYRIGHT © 2026 Velora",
+                style: TextStyle(color: Colors.white60, fontSize: 18),
               ),
               Text(
                 "Version 1.0.0",
-                style: TextStyle(
-                  color: Colors.white38,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: Colors.white60, fontSize: 15),
               ),
-
-
-
-            ]
-          )
-        )
-      )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

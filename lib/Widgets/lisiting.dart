@@ -1,71 +1,21 @@
 import 'package:flutter/material.dart';
-
-class Event {
-  String name;
-  String date;
-  dynamic img;
-  String time;
-  String location;
-  Event({
-    required this.name,
-    required this.date,
-    required this.img,
-    required this.time,
-    required this.location,
-  });
-}
+import 'event.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final List<Event> events;
+
+  const HomeScreen({super.key, required this.events});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Event> events = [
-    Event(
-      name: "Tech Symposium",
-      date: "2024-07-15",
-      img: "assets/music.jpg",
-      time: "10:00 AM",
-      location: "BVM",
-    ),
-    Event(
-      name: "Cultural Fest",
-      date: "2024-08-20",
-      img: "assets/music.jpg",
-      time: "5:00 PM",
-      location: "GCET",
-    ),
-    Event(
-      name: "Sports Meet",
-      date: "2024-09-10",
-      img: "assets/music.jpg",
-      time: "8:00 AM",
-      location: "ADIT",
-    ),
-    Event(
-      name: "Art Exhibition",
-      date: "2024-10-05",
-      img: "assets/music.jpg",
-      time: "11:00 AM",
-      location: "BBIT",
-    ),
-    Event(
-      name: "Music Concert",
-      date: "2024-11-25",
-      img: "assets/music.jpg",
-      time: "7:00 PM",
-      location: "DDU",
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    List<Widget> eventCards = events
+    List<Widget> eventCards = widget.events
         .map(
           (e) => Container(
             width: w * 0.9,
@@ -87,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Image.asset(
                     e.img,
                     height: h * 0.18,
-                    width: w * 0.9 ,
+                    width: w * 0.9,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -96,54 +46,75 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        Text(
-                        e.name,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      ],
-                      ),
-                      SizedBox(height: 5),
-                      Row(children: [
-                        Icon(Icons.calendar_today, size: 16, color: Colors.white70),
-                        SizedBox(width: 5),
-                        Text(
-                        e.date,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white70,
-                        ),
-                      ),
-                      Text(" |" , style: TextStyle(color: Colors.white70,fontSize: 16,)),
-                      SizedBox(width: 5),
-                      Icon(Icons.access_time, size: 16, color: Colors.white70),
-                      SizedBox(width: 5),
-                      Text( 
-                        e.time,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white70,
-                        ),
-                      ),
-                      ],
+                      Row(
+                        children: [
+                          Text(
+                            e.name,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 5),
-                      Row(children: [
-                        Icon(Icons.location_on, size: 16, color: const Color.fromARGB(179, 255, 0, 0)),
-                        SizedBox(width: 5),
-                      Text(
-                        e.location,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white70,
-                        ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_today,
+                            size: 16,
+                            color: Colors.white70,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            e.date,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          Text(
+                            " |",
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                            ),
+                          ),
+                          SizedBox(width: 5),
+                          Icon(
+                            Icons.access_time,
+                            size: 16,
+                            color: Colors.white70,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            e.time,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                    ),
+                      SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            size: 16,
+                            color: const Color.fromARGB(179, 255, 0, 0),
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            e.location,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -272,8 +243,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: events.length,
-                    itemBuilder: (context, index) { 
+                    itemCount: widget.events.length,
+                    itemBuilder: (context, index) {
                       return eventCards[index];
                     },
                   ),

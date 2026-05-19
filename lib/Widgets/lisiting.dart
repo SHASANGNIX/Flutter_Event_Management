@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            e.location,
+                            e.college,
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.white70,
@@ -171,14 +171,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 60,
                       child: TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: TextButton(
+                          onPressed: () => Navigator.pushNamed(context, '/add'),
+                        child:Text(
                           "+",
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
+                        ),),
                       ),
                     ),
                   ],

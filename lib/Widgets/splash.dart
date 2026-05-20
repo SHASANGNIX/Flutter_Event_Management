@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'fragment_holder.dart';
 
-class Splash extends StatelessWidget {
+class Splash extends StatefulWidget {
   const Splash({super.key});
+  @override
+  State<Splash> createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => FragmentHolder()),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +38,7 @@ class Splash extends StatelessWidget {
               colors: [Color(0xFF6A11FF), Color(0xFF3D0B87), Color(0xFF0F0F0F)],
             ),
           ),
-          
+
           padding: EdgeInsets.all(5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -127,7 +144,7 @@ class Splash extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: h * 0.1),
+              SizedBox(height: h * 0.06),
               SizedBox(
                 height: 60,
                 width: 60,

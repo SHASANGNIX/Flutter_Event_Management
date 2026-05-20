@@ -17,108 +17,144 @@ class _HomeScreenState extends State<HomeScreen> {
     double h = MediaQuery.of(context).size.height;
     List<Widget> eventCards = widget.events
         .map(
-          (e) => Container(
-            width: w * 0.9,
-            height: h * 0.3,
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.white, width: 2),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
+          (e) => InkWell(
+            onTap: () => Navigator.pushNamed(context, '/event', arguments: e),
+            child: Container(
+              width: w * 0.9,
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: Colors.white, width: 2),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+
+                      child: Image.asset(e.img, fit: BoxFit.cover),
+                    ),
                   ),
-                  child: Image.asset(
-                    e.img,
-                    height: h * 0.18,
-                    width: w * 0.9,
-                    fit: BoxFit.cover,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              e.name,
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Expanded(child: SizedBox()),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.edit, color: Colors.white),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.delete,
+                                color: const Color.fromARGB(179, 255, 0, 0),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_today,
+                              size: 16,
+                              color: Colors.white70,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              e.date,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white70,
+                              ),
+                            ),
+                            Text(
+                              " |",
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Icon(
+                              Icons.access_time,
+                              size: 16,
+                              color: Colors.white70,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              e.time,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              size: 16,
+                              color: const Color.fromARGB(179, 255, 0, 0),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              e.college,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white70,
+                              ),
+                            ),
+                            Text(
+                              " |",
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Icon(
+                              Icons.business,
+                              size: 16,
+                              color: Colors.white70,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              e.department,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            e.name,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.calendar_today,
-                            size: 16,
-                            color: Colors.white70,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            e.date,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white70,
-                            ),
-                          ),
-                          Text(
-                            " |",
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 16,
-                            ),
-                          ),
-                          SizedBox(width: 5),
-                          Icon(
-                            Icons.access_time,
-                            size: 16,
-                            color: Colors.white70,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            e.time,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                            size: 16,
-                            color: const Color.fromARGB(179, 255, 0, 0),
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            e.college,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         )
@@ -173,14 +209,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {},
                         child: TextButton(
                           onPressed: () => Navigator.pushNamed(context, '/add'),
-                        child:Text(
-                          "+",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                          child: Text(
+                            "+",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),),
+                        ),
                       ),
                     ),
                   ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'lisiting.dart';
 import 'add_event.dart';
 import 'event.dart';
+import 'eventDetail.dart';
 
 class FragmentHolder extends StatefulWidget {
   const FragmentHolder({super.key});
@@ -112,6 +113,8 @@ class _FragmentHolderState extends State<FragmentHolder> {
                     break;
                   case '/add':
                     builder = (BuildContext context) => AddEvent( addEvent: addEvent);
+                  case '/event':
+                    builder = (BuildContext context) => Eventdetail(event: settings.arguments as Event);
                   default:
                     builder = (BuildContext context) =>
                         HomeScreen(events: events);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'lisiting.dart';
 import 'add_event.dart';
 import 'event.dart';
+import 'edit_event.dart';
 import 'eventDetail.dart';
 
 class FragmentHolder extends StatefulWidget {
@@ -26,7 +27,7 @@ class _FragmentHolderState extends State<FragmentHolder> {
       category: "Technology",
       contact: "contact@techsymposium.com",
       isOnline: false,
-      meetingLink: "https://example.com/tech-symposium-meeting"
+      meetingLink: "https://example.com/tech-symposium-meeting",
     ),
     Event(
       name: "Cultural Fest",
@@ -41,7 +42,7 @@ class _FragmentHolderState extends State<FragmentHolder> {
       category: "Cultural",
       contact: "contact@culturalfest.com",
       isOnline: false,
-      meetingLink: "https://example.com/cultural-fest-meeting"
+      meetingLink: "https://example.com/cultural-fest-meeting",
     ),
     Event(
       name: "Sports Meet",
@@ -56,7 +57,7 @@ class _FragmentHolderState extends State<FragmentHolder> {
       category: "Sports",
       contact: "contact@sportsmeet.com",
       isOnline: false,
-      meetingLink: "https://example.com/sports-meet-meeting"
+      meetingLink: "https://example.com/sports-meet-meeting",
     ),
     Event(
       name: "Art Exhibition",
@@ -71,7 +72,7 @@ class _FragmentHolderState extends State<FragmentHolder> {
       category: "Cultural",
       contact: "contact@artexhibition.com",
       isOnline: false,
-      meetingLink: "https://example.com/art-exhibition-meeting"
+      meetingLink: "https://example.com/art-exhibition-meeting",
     ),
     Event(
       name: "Music Concert",
@@ -86,16 +87,21 @@ class _FragmentHolderState extends State<FragmentHolder> {
       category: "Cultural",
       contact: "contact@musicconcert.com",
       isOnline: false,
-      meetingLink: "https://example.com/music-concert-meeting"
+      meetingLink: "https://example.com/music-concert-meeting",
     ),
   ];
-   void addEvent(Event event) {
-
+  void addEvent(Event event) {
     setState(() {
-
       events.add(event);
     });
   }
+
+  void editEvent(int index, Event updatedEvent) {
+    setState(() {
+      events[index]=updatedEvent;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -109,9 +115,18 @@ class _FragmentHolderState extends State<FragmentHolder> {
                 switch (settings.name) {
                   case '/':
                   case '/home':
-                    builder = (BuildContext context) =>HomeScreen(events: events); 
+                    builder = (BuildContext context) =>
+                        HomeScreen(events: events);
                     break;
                   case '/add':
+                    builder = (BuildContext context) =>
+                        AddEvent(addEvent: addEvent);
+                  break;
+                  case '/edit':
+                    final args = settings.arguments as Map<String, dynamic>;
+                    final event = args['event'] as Event;
+                    final index = args['index'] as int;
+                    builder = (BuildContext context) => EditEvent(event: event, index: index, editEvent: editEvent);
                     builder = (BuildContext context) => AddEvent( addEvent: addEvent);
                   case '/event':
                     builder = (BuildContext context) => Eventdetail(event: settings.arguments as Event);

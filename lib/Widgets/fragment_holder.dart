@@ -98,7 +98,13 @@ class _FragmentHolderState extends State<FragmentHolder> {
 
   void editEvent(int index, Event updatedEvent) {
     setState(() {
-      events[index]=updatedEvent;
+      events[index] = updatedEvent;
+    });
+  }
+
+  void deleteEvent(int index) {
+    setState(() {
+      events.removeAt(index);
     });
   }
 
@@ -116,23 +122,28 @@ class _FragmentHolderState extends State<FragmentHolder> {
                   case '/':
                   case '/home':
                     builder = (BuildContext context) =>
-                        HomeScreen(events: events);
+                        HomeScreen(events: events, deleteEvent: deleteEvent);
                     break;
                   case '/add':
                     builder = (BuildContext context) =>
                         AddEvent(addEvent: addEvent);
-                  break;
+                    break;
                   case '/edit':
                     final args = settings.arguments as Map<String, dynamic>;
                     final event = args['event'] as Event;
                     final index = args['index'] as int;
-                    builder = (BuildContext context) => EditEvent(event: event, index: index, editEvent: editEvent);
-                    builder = (BuildContext context) => AddEvent( addEvent: addEvent);
+                    builder = (BuildContext context) => EditEvent(
+                      event: event,
+                      index: index,
+                      editEvent: editEvent,
+                    );
+                    break;
                   case '/event':
-                    builder = (BuildContext context) => Eventdetail(event: settings.arguments as Event);
+                    builder = (BuildContext context) =>
+                        Eventdetail(event: settings.arguments as Event);
                   default:
                     builder = (BuildContext context) =>
-                        HomeScreen(events: events);
+                        HomeScreen(events: events, deleteEvent: deleteEvent);
                 }
                 return MaterialPageRoute(builder: builder, settings: settings);
               },

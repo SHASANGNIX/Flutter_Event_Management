@@ -7,7 +7,7 @@ class Eventdetail extends StatelessWidget {
   final Event event;
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
+    //double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return MaterialApp(
       debugShowCheckedModeBanner: false,

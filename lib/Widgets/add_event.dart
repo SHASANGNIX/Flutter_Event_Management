@@ -42,15 +42,37 @@ class _AddEventState extends State<AddEvent> {
     }
   }
 
-  Widget CustomField(TextEditingController controller) {
+  void resetForm() {
+    nameController.clear();
+    venueController.clear();
+    descriptionController.clear();
+    departmentController.clear();
+    collegeController.clear();
+    registrationController.clear();
+    contactController.clear();
+    meetingController.clear();
+    timeController.clear();
+    categoryController.clear();
+    setState(() {
+      date = "";
+      isOnline = false;
+    });
+  }
+
+  Widget CustomField(
+    String label,
+    TextEditingController controller,
+    dynamic icon,
+  ) {
     return Padding(
       padding: EdgeInsets.all(0),
       child: TextFormField(
         controller: controller,
-        style: GoogleFonts.montserrat(color: Colors.black),
+        style: GoogleFonts.montserrat(color: Colors.white),
         decoration: InputDecoration(
-          labelStyle: GoogleFonts.montserrat(color: Colors.black, fontSize: 20),
-
+          hintText: label,
+          hintStyle: GoogleFonts.montserrat(color: Colors.black, fontSize: 20),
+          prefixIcon: icon != null ? Icon(icon, color: Colors.grey[500]) : null,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: Colors.black, width: 2),
@@ -82,19 +104,28 @@ class _AddEventState extends State<AddEvent> {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      color: Colors.white,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF6A11FF), Color(0xFF3D0B87), Color(0xFF0F0F0F)],
+        ),
+      ),
+      
 
       child: Column(
         children: [
           Container(
             height: 150,
             width: double.infinity,
+            
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.zero,
                 topRight: Radius.zero,
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
+                
               ),
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -138,12 +169,12 @@ class _AddEventState extends State<AddEvent> {
                     children: [
                       Center(
                         child: Text(
-                          "---Event Details---",
+                          "─── Event Details ───",
                           style: GoogleFonts.montserrat(
                             fontSize: 25,
                             fontWeight: FontWeight.w800,
                             letterSpacing: 2,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -154,10 +185,10 @@ class _AddEventState extends State<AddEvent> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
-                      CustomField(nameController),
+                      CustomField("Event Name", nameController, Icons.event),
                       SizedBox(height: 10),
                       Text(
                         "Date:",
@@ -165,7 +196,7 @@ class _AddEventState extends State<AddEvent> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                       InkWell(
@@ -180,7 +211,13 @@ class _AddEventState extends State<AddEvent> {
                             borderRadius: BorderRadius.circular(5),
                           ),
 
-                          child: Text(date == "" ? "Select Date" : date),
+                          child: Text(
+                            date == "" ? " Select Date" : date,
+                            style: GoogleFonts.montserrat(
+                              color: Colors.black,
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(height: 10),
@@ -190,10 +227,10 @@ class _AddEventState extends State<AddEvent> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
-                      CustomField(timeController),
+                      CustomField("Time", timeController, Icons.access_time),
                       SizedBox(height: 10),
                       Text(
                         "Venue:",
@@ -201,10 +238,10 @@ class _AddEventState extends State<AddEvent> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
-                      CustomField(venueController),
+                      CustomField("Venue", venueController, Icons.location_on),
                       SizedBox(height: 10),
                       Text(
                         "Description:",
@@ -212,17 +249,30 @@ class _AddEventState extends State<AddEvent> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                       Padding(
                         padding: EdgeInsetsGeometry.all(0),
                         child: TextFormField(
                           controller: descriptionController,
-                          style: GoogleFonts.montserrat(color: Colors.black),
+                          style: GoogleFonts.montserrat(color: Colors.white),
                           maxLines: 5,
                           decoration: InputDecoration(
-                            labelStyle: GoogleFonts.montserrat(
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.only(
+                                left: 0,
+                                top: 0,
+                                right: 8,
+                                bottom: 90,
+                              ),
+                              child: Icon(
+                                Icons.description,
+                                color: Colors.grey[500],
+                              ),
+                            ),
+                            hintText: "Description",
+                            hintStyle: GoogleFonts.montserrat(
                               color: Colors.black,
                               fontSize: 20,
                             ),
@@ -246,10 +296,14 @@ class _AddEventState extends State<AddEvent> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
-                      CustomField(departmentController),
+                      CustomField(
+                        "Department",
+                        departmentController,
+                        Icons.business,
+                      ),
                       SizedBox(height: 10),
                       Text(
                         "College:",
@@ -257,10 +311,10 @@ class _AddEventState extends State<AddEvent> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
-                      CustomField(collegeController),
+                      CustomField("College", collegeController, Icons.school),
                       SizedBox(height: 10),
                       Text(
                         "Category:",
@@ -268,14 +322,22 @@ class _AddEventState extends State<AddEvent> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
-                      CustomField(categoryController),
+                      CustomField("Category", categoryController, Icons.label),
                       SwitchListTile(
                         value: isOnline,
 
-                        title: Text("Online Event"),
+                        title: Text(
+                          "Online Event",
+                          style: GoogleFonts.poppins(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 1,
+                            color: Colors.white,
+                          ),
+                        ),
 
                         onChanged: (value) {
                           setState(() {
@@ -285,7 +347,11 @@ class _AddEventState extends State<AddEvent> {
                       ),
 
                       if (isOnline)
-                          CustomField(meetingController),
+                        CustomField(
+                          "Meeting Link",
+                          meetingController,
+                          Icons.videocam,
+                        ),
 
                       SizedBox(height: 10),
                       Text(
@@ -294,10 +360,14 @@ class _AddEventState extends State<AddEvent> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
-                       CustomField(registrationController),
+                      CustomField(
+                        "Registration Link",
+                        registrationController,
+                        Icons.link,
+                      ),
                       SizedBox(height: 10),
                       Text(
                         "Contact Details:",
@@ -305,36 +375,60 @@ class _AddEventState extends State<AddEvent> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
-                       CustomField(contactController), 
-                      
-                      SizedBox(height: 20),
-
-                      ElevatedButton(
-                        onPressed: (){
-                          Event newevent = Event(
-                            name: nameController.text,
-                            date: date,
-                            time: timeController.text,
-                            venue: venueController.text,
-                            description: descriptionController.text,
-                            department: departmentController.text,
-                            college: collegeController.text,
-                            category: categoryController.text,
-                            isOnline: isOnline,
-                            meetingLink: meetingController.text,
-                            registrationLink: registrationController.text,
-                            contact: contactController.text,
-                            img:'assets/music.jpg',
-                          );
-                          widget.addEvent(newevent);
-                          Navigator.pop(context);
-                        }, 
-                      child: Text("Add Event", style: GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.w600),
+                      CustomField(
+                        "Contact Details",
+                        contactController,
+                        Icons.person,
                       ),
-                      )
+
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Event newevent = Event(
+                                name: nameController.text,
+                                date: date,
+                                time: timeController.text,
+                                venue: venueController.text,
+                                description: descriptionController.text,
+                                department: departmentController.text,
+                                college: collegeController.text,
+                                category: categoryController.text,
+                                isOnline: isOnline,
+                                meetingLink: meetingController.text,
+                                registrationLink: registrationController.text,
+                                contact: contactController.text,
+                                img: 'assets/music.jpg',
+                              );
+                              widget.addEvent(newevent);
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              "Add Event",
+                              style: GoogleFonts.montserrat(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+
+                          ElevatedButton(
+                            onPressed: resetForm,
+                            child: Text(
+                              "Reset",
+                              style: GoogleFonts.montserrat(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

@@ -51,6 +51,7 @@ class _EditEventState extends State<EditEvent> {
 
   @override
   void initState() {
+    super.initState();
     nameController.text = widget.event.name;
     venueController.text = widget.event.venue;
     departmentController.text = widget.event.department;
@@ -91,17 +92,18 @@ class _EditEventState extends State<EditEvent> {
       padding: EdgeInsets.all(0),
       child: TextFormField(
         controller: controller,
-        style: GoogleFonts.montserrat(color: Colors.white),
+        style: GoogleFonts.montserrat(color: Colors.black),
         decoration: InputDecoration(
           hintText: label,
           hintStyle: GoogleFonts.montserrat(color: Colors.black, fontSize: 20),
-          prefixIcon: icon != null ? Icon(icon, color: Colors.grey[500]) : null,
+          prefixIcon: icon != null ? Icon(icon, color: Colors.black) : null,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.black, width: 2),
+            borderSide: BorderSide(color: Colors.grey, width: 2),
           ),
-          fillColor: Colors.grey[300],
+          fillColor: Colors.white,
           filled: true,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),
     );
@@ -126,9 +128,7 @@ class _EditEventState extends State<EditEvent> {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
         body: Container(
           height: double.infinity,
           width: double.infinity,
@@ -226,9 +226,9 @@ class _EditEventState extends State<EditEvent> {
                                 padding: EdgeInsets.all(15),
 
                                 decoration: BoxDecoration(
-                                  color: Colors.grey[300],
+                                  color: Colors.white,
                                   border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
 
                                 child: Text(
@@ -285,7 +285,7 @@ class _EditEventState extends State<EditEvent> {
                               child: TextFormField(
                                 controller: descriptionController,
                                 style: GoogleFonts.montserrat(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                                 maxLines: 5,
                                 decoration: InputDecoration(
@@ -298,7 +298,7 @@ class _EditEventState extends State<EditEvent> {
                                     ),
                                     child: Icon(
                                       Icons.description,
-                                      color: Colors.grey[500],
+                                      color: Colors.black,
                                     ),
                                   ),
                                   hintText: "Description",
@@ -314,7 +314,7 @@ class _EditEventState extends State<EditEvent> {
                                       width: 2,
                                     ),
                                   ),
-                                  fillColor: Colors.grey[300],
+                                  fillColor: Colors.white,
                                   filled: true,
                                 ),
                               ),
@@ -426,7 +426,7 @@ class _EditEventState extends State<EditEvent> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                ElevatedButton(
+                                OutlinedButton(
                                   onPressed: () {
                                     Event editevent = Event(
                                       name: nameController.text,
@@ -447,20 +447,30 @@ class _EditEventState extends State<EditEvent> {
                                     widget.editEvent(widget.index, editevent);
                                     Navigator.pop(context);
                                   },
+                                  style: OutlinedButton.styleFrom(
+                                    minimumSize: Size(150, 40),
+                                    backgroundColor: Colors.white,
+                                  ),
                                   child: Text(
                                     "Save Changes",
                                     style: GoogleFonts.montserrat(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
+                                      color: Colors.black
                                     ),
                                   ),
                                 ),
 
-                                ElevatedButton(
+                                OutlinedButton(
                                   onPressed: resetForm,
+                                  style: OutlinedButton.styleFrom(
+                                    minimumSize: Size(150, 40),
+                                    backgroundColor: Colors.white,
+                                  ),
                                   child: Text(
                                     "Reset",
                                     style: GoogleFonts.montserrat(
+                                      color: Colors.black,
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -478,7 +488,6 @@ class _EditEventState extends State<EditEvent> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

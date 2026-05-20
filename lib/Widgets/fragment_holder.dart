@@ -141,6 +141,7 @@ class _FragmentHolderState extends State<FragmentHolder> {
                   case '/event':
                     builder = (BuildContext context) =>
                         Eventdetail(event: settings.arguments as Event);
+                    break;
                   default:
                     builder = (BuildContext context) =>
                         HomeScreen(events: events, deleteEvent: deleteEvent);

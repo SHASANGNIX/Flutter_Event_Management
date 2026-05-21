@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'lisiting.dart';
 import 'add_event.dart';
 import 'event.dart';
 import 'edit_event.dart';
 import 'eventDetail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FragmentHolder extends StatefulWidget {
   const FragmentHolder({super.key});
@@ -94,18 +97,31 @@ class _FragmentHolderState extends State<FragmentHolder> {
     setState(() {
       events.add(event);
     });
+    saveList();
   }
 
   void editEvent(int index, Event updatedEvent) {
     setState(() {
       events[index] = updatedEvent;
     });
+    saveList();
   }
 
   void deleteEvent(int index) {
     setState(() {
       events.removeAt(index);
     });
+    saveList();
+  }
+  Future<void> saveList() async {
+    try{
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String jsonString = jsonEncode(events.map((e) => e.toJson()).toList());
+      await prefs.setString('events', jsonString);
+    }
+    catch(e){
+      print("Error saving events: $e");
+    }
   }
 
   @override

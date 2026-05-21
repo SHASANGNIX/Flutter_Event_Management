@@ -16,11 +16,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Event> filteredEvents = [];
+  late List<Event> filteredEvents = [];
   @override
   void initState() {
     super.initState();
-    filteredEvents = widget.events;
+    filteredEvents = List.from(widget.events);
+  }
+
+  @override
+  void didUpdateWidget(covariant HomeScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+      setState(() {
+        filteredEvents = List.from(widget.events);
+      });
+    
   }
 
   TextEditingController nameFilterController = TextEditingController();
@@ -48,44 +57,48 @@ class _HomeScreenState extends State<HomeScreen> {
           .toList();
     });
   }
+
   void clearFilters() {
     nameFilterController.clear();
     collegeFilterController.clear();
     departmentFilterController.clear();
     categoryFilterController.clear();
     setState(() {
-      filteredEvents = widget.events;
+      filteredEvents = List.from(widget.events);
     });
   }
+
   void applyFilters() {
     setState(() {
-      filteredEvents = widget.events.where((e) {
-        bool matchName =
-            nameFilterController.text.isEmpty ||
-            e.name.toLowerCase().contains(
-              nameFilterController.text.toLowerCase(),
-            );
+      filteredEvents = List.from(
+        widget.events.where((e) {
+          bool matchName =
+              nameFilterController.text.isEmpty ||
+              e.name.toLowerCase().contains(
+                nameFilterController.text.toLowerCase(),
+              );
 
-        bool matchCollege =
-            collegeFilterController.text.isEmpty ||
-            e.college.toLowerCase().contains(
-              collegeFilterController.text.toLowerCase(),
-            );
+          bool matchCollege =
+              collegeFilterController.text.isEmpty ||
+              e.college.toLowerCase().contains(
+                collegeFilterController.text.toLowerCase(),
+              );
 
-        bool matchDepartment =
-            departmentFilterController.text.isEmpty ||
-            e.department.toLowerCase().contains(
-              departmentFilterController.text.toLowerCase(),
-            );
+          bool matchDepartment =
+              departmentFilterController.text.isEmpty ||
+              e.department.toLowerCase().contains(
+                departmentFilterController.text.toLowerCase(),
+              );
 
-        bool matchCategory =
-            categoryFilterController.text.isEmpty ||
-            e.category.toLowerCase().contains(
-              categoryFilterController.text.toLowerCase(),
-            );
+          bool matchCategory =
+              categoryFilterController.text.isEmpty ||
+              e.category.toLowerCase().contains(
+                categoryFilterController.text.toLowerCase(),
+              );
 
-        return matchName && matchCollege && matchDepartment && matchCategory;
-      }).toList();
+          return matchName && matchCollege && matchDepartment && matchCategory;
+        }).toList(),
+      );
     });
   }
 
@@ -94,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     List<Widget> eventCards = filteredEvents.asMap().entries.map((entry) {
-      int index = entry.key;
+      int index = widget.events.indexOf(entry.value);
       Event e = entry.value;
       return InkWell(
         onTap: () => Navigator.pushNamed(context, '/event', arguments: e),
@@ -387,7 +400,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(color: Color(0xFF5F2CFF), width: 3),
+                                        borderSide: BorderSide(
+                                          color: Color(0xFF5F2CFF),
+                                          width: 3,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -406,7 +422,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(color: Color(0xFF5F2CFF), width: 3),
+                                        borderSide: BorderSide(
+                                          color: Color(0xFF5F2CFF),
+                                          width: 3,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -425,7 +444,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(color: Color(0xFF5F2CFF), width: 3),
+                                        borderSide: BorderSide(
+                                          color: Color(0xFF5F2CFF),
+                                          width: 3,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -444,43 +466,49 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(color: Color(0xFF5F2CFF), width: 3),
+                                        borderSide: BorderSide(
+                                          color: Color(0xFF5F2CFF),
+                                          width: 3,
+                                        ),
                                       ),
                                     ),
                                   ),
 
                                   SizedBox(height: 25),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        applyFilters();
-                                        Navigator.pop(context);
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(150, 40),
-                                        backgroundColor: Color(0xFF5F2CFF),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          applyFilters();
+                                          Navigator.pop(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          minimumSize: Size(150, 40),
+                                          backgroundColor: Color(0xFF5F2CFF),
+                                        ),
+                                        child: Text(
+                                          "Apply Filters",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ),
-                                      child: Text("Apply Filters", style: TextStyle(color: Colors.white),),
-                                    ),
-                                    SizedBox(width: 20,),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        clearFilters();
-                                        Navigator.pop(context);
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(150, 40),
-                                        backgroundColor: Color(0xFF5F2CFF),
+                                      SizedBox(width: 20),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          clearFilters();
+                                          Navigator.pop(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          minimumSize: Size(150, 40),
+                                          backgroundColor: Color(0xFF5F2CFF),
+                                        ),
+                                        child: Text(
+                                          "Reset",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ),
-                                      child: Text("Reset", style: TextStyle(color: Colors.white),),
-                                    ),
-                                  ],
-                                ),
-                                  
-                                    
-                                
+                                    ],
+                                  ),
                                 ],
                               ),
                             );
@@ -510,6 +538,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+
               Expanded(
                 child: ListView.builder(
                   itemCount: filteredEvents.length,

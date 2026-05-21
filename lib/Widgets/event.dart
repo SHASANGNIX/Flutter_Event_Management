@@ -28,6 +28,23 @@ class Event {
     required this.meetingLink,
     required this.img,
   });
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+      name: json['name'],
+      date: json['date'],
+      time: json['time'],
+      venue: json['venue'],
+      description: json['description'],
+      department: json['department'],
+      college: json['college'],
+      registrationLink: json['registrationLink'],
+      category: json['category'],
+      contact: json['contact'],
+      isOnline: json['isOnline'],
+      meetingLink: json['meetingLink'],
+      img: json['img'],
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {

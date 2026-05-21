@@ -28,4 +28,22 @@ class Event {
     required this.meetingLink,
     required this.img,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'date': date,
+      'time': time,
+      'venue': venue,
+      'description': description,
+      'department': department,
+      'college': college,
+      'registrationLink': registrationLink,
+      'category': category,
+      'contact': contact,
+      'isOnline': isOnline,
+      'meetingLink': meetingLink,
+      'img': img,
+    };
+  }
 }
